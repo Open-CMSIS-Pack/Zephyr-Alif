@@ -45,10 +45,12 @@ In VS Code use the menu command **Terminal - Run Tasks** and execute:
    - Use the menu command **Terminal - Run Tasks** and execute:
       - "Setup Zephyr-Alif workspace"
    - Now the required Zephyr and Alif modules are downloaded from the repos and the workspace is initialized and updated locally under the *./Alif_E7_Zephyr/Zephyr-Workspace/* folder.
-3. In CMSIS View, press the `Select Active Solution from workspace` button to select your desired example.
-4. Press the **"Build solution"** button to build the example:
+3. To use the west tools for projects located in different folders:
+   - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```
+5. In CMSIS View, press the `Select Active Solution from workspace` button to select your desired example.
+6. Press the **"Build solution"** button to build the example:
    - The entire executed ```west build``` command can be found in the csolution.yml file under the **"executes:"** node.
-5. Start the CMSIS Debugger for dual-core debugging:
+7. Start the CMSIS Debugger for dual-core debugging:
    - Start the **M55_HE CMSIS_DAP@pyOCD (launch)** debug session first, followed by the **M55_HP CMSIS_DAP@pyOCD (attach)** debug session.
    - After starting the second debug session, the program will halt at `cpu_idle.S`. This occurs because the second core still remains in its idle loop until a valid entry point is reached. To resolve this, add the following command under the **M55_HP CMSIS_DAP@pyOCD (attach)** section in the launch.json file:
    ```bash
