@@ -40,11 +40,11 @@ In VS Code use the menu command **Terminal - Run Tasks** and execute:
 - "Alif: Install M55_HE and M55_HP debug stubs (dual core configuration)"
 
 # Steps to build and debug the Zephyr example
-1. Open the folder *./Zephyr-Alif/* in VS code.
+1. Open the folder *./Zephyr-Alif* in VS code.
 2. Initialize and update the Zephyr workspace:
    - Use the menu command **Terminal - Run Tasks** and execute:
       - "Setup Zephyr-Alif workspace"
-   - Now the required Zephyr and Alif modules are downloaded from the repos and the workspace is initialized and updated locally under the *./Alif_E7_Zephyr/Zephyr-Workspace/* folder.
+   - Now the required Zephyr and Alif modules are downloaded from the repos and the workspace is initialized and updated locally under the *./Alif_E7_Zephyr/Zephyr-Workspace* folder.
 3. To use the west tools for projects located in different folders:
    - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```
 5. In CMSIS View, press the `Select Active Solution from workspace` button to select your desired example.
