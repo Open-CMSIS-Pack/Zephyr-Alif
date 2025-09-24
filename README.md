@@ -41,7 +41,7 @@ In VS Code use the menu command **Terminal - Run Tasks** and execute:
 
 # Steps to build and debug the Zephyr example
 1. Open the folder *./Zephyr-Alif* in VS code.
-2. Initialize and update the Zephyr workspace:
+2. Initialize and update the Zephyr workspace, if none exists:
    - Use the menu command **Terminal - Run Tasks** and execute:
       - "Setup Zephyr-Alif workspace"
    - Now the required Zephyr and Alif modules are downloaded from the repos and the workspace is initialized and updated locally under the *./Alif_E7_Zephyr/Zephyr-Workspace* folder.
