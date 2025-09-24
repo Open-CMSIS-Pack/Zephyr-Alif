@@ -1,5 +1,5 @@
 # Zephyr-Alif
-Zephyr examples for an Alif Semiconductor DK-E7 board.
+Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json file has been adapted to load the ELF image built by the Zephyr West tool, which will be debugged by the [CMSIS-Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) extension.
 
 **Examples/ipm_arm_mhuv2** contains a [ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/main/samples/drivers/ipm/ipm_arm_mhuv2) CMSIS solution example project from [Alif-Zephyr-SDK](https://github.com/alifsemi/sdk-alif), which is built by Zephyr West tool and debugged by CMSIS-Debugger extension. This example demonstrates the dual-core debugging in Keil Studio and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores.
 
@@ -29,7 +29,7 @@ More details can be found in [Zephzr Getting Started Guide](https://docs.zephyrp
 
 # SETOOLS
 
-Before flashing this example on the AppKit E7 board it is required to program the ATOC of the device using the Alif SETOOLS.
+Before flashing this example on the AppKit E7 board it is required to program the ATOC of the device using the Alif SETOOLS. This process only has to be done once.
 
 Refer to the section [Usage](https://github.com/alifsemi/alif_ensemble-cmsis-dfp/blob/main/docs/Overview.md#usage)
 in the overview page of the Alif Semiconductor Ensemble DFP/BSP for information on how
