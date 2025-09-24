@@ -46,7 +46,7 @@ In VS Code use the menu command **Terminal - Run Tasks** and execute:
       - "Setup Zephyr-Alif workspace"
    - Now the required Zephyr and Alif modules are downloaded from the repos and the workspace is initialized and updated locally under the *./Alif_E7_Zephyr/Zephyr-Workspace* folder.
 3. To use the west tools for projects located in different folders:
-   - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```
+   - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```, and restart the VS Code.
 5. In CMSIS View, press the `Select Active Solution from workspace` button to select your desired example.
 6. Press the **"Build solution"** button to build the example:
    - The entire executed ```west build``` command can be found in the csolution.yml file under the **"executes:"** node.
