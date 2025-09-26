@@ -35,22 +35,22 @@ Refer to the section [Usage](https://github.com/alifsemi/alif_ensemble-cmsis-dfp
 in the overview page of the Alif Semiconductor Ensemble DFP/BSP for information on how
 to setup these tools.
 
-In VS Code use the menu command **Terminal - Run Tasks** and execute:
+In VS Code use the menu command **"Terminal - Run Tasks"** and execute:
 
 - "Alif: Install M55_HE and M55_HP debug stubs (dual core configuration)"
 
 # Steps to build and debug the Zephyr example
 1. Open the folder *./Zephyr-Alif* in VS code.
 2. Initialize and update the Zephyr workspace, if none exists:
-   - Use the menu command **Terminal - Run Tasks** and execute:
+   - Use the menu command **"Terminal - Run Tasks"** and execute:
       - "Setup Zephyr-Alif workspace"
    - Now the required Zephyr and Alif modules can be found under the *./Zephyr-Alif/Zephyr-Workspace* folder.
 3. To use the west tools for projects located in different folders:
    - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```, and restart the VS Code.
-5. In CMSIS View, press the **Select Active Solution from workspace** button to select the example you want.
+5. In CMSIS View, press the **"Select Active Solution from workspace"** button to select the example you want.
 6. Press the **"Build solution"** button to build the example:
-   - The entire executed ```west build``` command can be found in the csolution.yml file under the **"executes:"** node.
-   - The **"image:"** node specifies the path to the Zephyr image, which is then passed to the launch.json file for the debugger.
+   - The entire executed ```west build``` command can be found in the csolution.yml file under the **"`executes:`"** node.
+   - The **"`image:`"** node specifies the path to the Zephyr image, which is then passed to the launch.json file for the debugger.
 7. Start the CMSIS Debugger for dual-core debugging:
    - Start the **M55_HE CMSIS_DAP@pyOCD (launch)** debug session first, followed by the **M55_HP CMSIS_DAP@pyOCD (attach)** debug session.
    - After starting the second debug session, the program will halt at `cpu_idle.S`. This occurs because the second core still remains in its idle loop until a valid entry point is reached. To resolve this, add the following command under the **M55_HP CMSIS_DAP@pyOCD (attach)** section in the launch.json file:
