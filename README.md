@@ -47,7 +47,7 @@ In VS Code use the menu command **Terminal - Run Tasks** and execute:
    - Now the required Zephyr and Alif modules can be found under the *./Zephyr-Alif/Zephyr-Workspace* folder.
 3. To use the west tools for projects located in different folders:
    - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```, and restart the VS Code.
-5. In CMSIS View, press the `Select Active Solution from workspace` button to select the example you want.
+5. In CMSIS View, press the **Select Active Solution from workspace** button to select the example you want.
 6. Press the **"Build solution"** button to build the example:
    - The entire executed ```west build``` command can be found in the csolution.yml file under the **"executes:"** node.
    - The **"image:"** node specifies the path to the Zephyr image, which is then passed to the launch.json file for the debugger.
