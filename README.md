@@ -1,9 +1,9 @@
 # Zephyr-Alif
-Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json file has been adapted to load the ELF image built by the Zephyr West tool, which will be debugged by the [CMSIS-Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) extension.
+Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json file has been adapted to load the ELF image built by the Zephyr West tool debugged by the [CMSIS-Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) extension.
 
-**Examples/ipm_arm_mhuv2** contains a [ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/main/samples/drivers/ipm/ipm_arm_mhuv2) CMSIS solution example project from [Alif-Zephyr-SDK](https://github.com/alifsemi/sdk-alif), which is built by Zephyr West tool and debugged by CMSIS-Debugger extension. This example demonstrates the dual-core debugging in Keil Studio and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores.
+[**Examples/ipm_arm_mhuv2**](https://github.com/Open-CMSIS-Pack/Zephyr-Alif/tree/main/Examples/ipm_arm_mhuv2) contains a [ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/main/samples/drivers/ipm/ipm_arm_mhuv2) CMSIS solution example project from [Alif-Zephyr-SDK](https://github.com/alifsemi/sdk-alif), which is built by Zephyr West tool and debugged by CMSIS-Debugger extension. This example demonstrates the dual-core debugging in Keil Studio and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores.
 
-**Examples/ipm_arm_mhuv2_sysbuild** is an example extended from [ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/main/samples/drivers/ipm/ipm_arm_mhuv2) with Zephyr [System build](https://docs.zephyrproject.org/latest/build/sysbuild/index).
+[**Examples/ipm_arm_mhuv2_sysbuild**](https://github.com/Open-CMSIS-Pack/Zephyr-Alif/tree/main/Examples/ipm_arm_mhuv2_sysbuild) is an example extended from [ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/main/samples/drivers/ipm/ipm_arm_mhuv2) with Zephyr [System Build](https://docs.zephyrproject.org/latest/build/sysbuild/index). For more information about System Build, please refer to the README.md file in the example.
 
 # Steps to setup Zephyr environment
 1. Install dependencies to your PC:
@@ -44,7 +44,7 @@ In VS Code use the menu command **Terminal - Run Tasks** and execute:
 2. Initialize and update the Zephyr workspace, if none exists:
    - Use the menu command **Terminal - Run Tasks** and execute:
       - "Setup Zephyr-Alif workspace"
-   - Now the required Zephyr and Alif modules are downloaded from the repos and the workspace is initialized and updated locally under the *./Alif_E7_Zephyr/Zephyr-Workspace* folder.
+   - Now the required Zephyr and Alif modules can be found under the *./Alif_E7_Zephyr/Zephyr-Workspace* folder.
 3. To use the west tools for projects located in different folders:
    - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```, and restart the VS Code.
 5. In CMSIS View, press the `Select Active Solution from workspace` button to select the example you want.
