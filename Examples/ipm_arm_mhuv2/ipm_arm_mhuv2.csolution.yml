@@ -13,8 +13,6 @@ solution:
       variables:
         - west-board: alif_e7_dk_rtss
       west-defs:
-        - CONFIG_DEBUG: y
-        - CONFIG_DEBUG_THREAD_INFO: y
         - SE_SERVICES: OFF
       target-set:
         - set:
@@ -25,8 +23,18 @@ solution:
             clock: 10000000
             start-pname: M55_HE
           images:
-            - project-context: M55_HE
-            - project-context: M55_HP
+            - project-context: M55_HE.Debug
+            - project-context: M55_HP.Debug
+
+  build-types:
+    - type: Debug
+      west-defs:
+        - CONFIG_DEBUG: y
+        - CONFIG_DEBUG_THREAD_INFO: y
+        - CONFIG_DEBUG_OPTIMIZATIONS: y
+    - type: Release
+      west-defs:
+        - CONFIG_SIZE_OPTIMIZATIONS: y
 
   # List related projects.
   projects:
