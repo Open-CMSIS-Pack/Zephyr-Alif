@@ -82,6 +82,3 @@ uv2csolution.log
 
 # Zephyr workspace and west build artifacts
 **/Zephyr-Workspace
-**/build_M55_HE
-**/build_M55_HP
-**/build_DualCores
