@@ -29,6 +29,7 @@
                 "cp './.alif/M55_HE_mram_stub.bin' '${config:alif.setools.root}/build/images/M55_HE_mram_stub.bin';",
                 "cd '${config:alif.setools.root}';",
                 "./app-gen-toc -f 'build/config/${command:cmsis-csolution.getProcessorName}_mram_cfg.json';",
+                "./app-write-mram -e app;",
                 "./app-write-mram -p ${input:discoverCOM};"
             ],
             "windows": {
