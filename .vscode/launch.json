@@ -5,8 +5,8 @@
             "name": "M55_HE CMSIS_DAP@pyOCD (launch)",
             "type": "gdbtarget",
             "request": "launch",
-            "cwd": "${workspaceFolder}/Examples\\ipm_arm_mhuv2_sysbuild",
-            "program": "build_DualCores\\rtss_he\\zephyr\\zephyr.elf",
+            "cwd": "${workspaceFolder}/Examples\\ipm_arm_mhuv2",
+            "program": "out\\M55_HE\\DevKit-E7\\Debug\\zephyr\\zephyr.elf",
             "gdb": "arm-none-eabi-gdb",
             "preLaunchTask": "CMSIS Load",
             "initCommands": [
@@ -44,8 +44,8 @@
             "name": "M55_HE CMSIS_DAP@pyOCD (attach)",
             "type": "gdbtarget",
             "request": "attach",
-            "cwd": "${workspaceFolder}/Examples\\ipm_arm_mhuv2_sysbuild",
-            "program": "build_DualCores\\rtss_he\\zephyr\\zephyr.elf",
+            "cwd": "${workspaceFolder}/Examples\\ipm_arm_mhuv2",
+            "program": "out\\M55_HE\\DevKit-E7\\Debug\\zephyr\\zephyr.elf",
             "gdb": "arm-none-eabi-gdb",
             "initCommands": [
                 ""
@@ -67,8 +67,8 @@
             "name": "M55_HP CMSIS_DAP@pyOCD (attach)",
             "type": "gdbtarget",
             "request": "attach",
-            "cwd": "${workspaceFolder}/Examples\\ipm_arm_mhuv2_sysbuild",
-            "program": "build_DualCores\\rtss_hp\\zephyr\\zephyr.elf",
+            "cwd": "${workspaceFolder}/Examples\\ipm_arm_mhuv2",
+            "program": "out\\M55_HP\\DevKit-E7\\Debug\\zephyr\\zephyr.elf",
             "gdb": "arm-none-eabi-gdb",
             "initCommands": [
                 ""

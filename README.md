@@ -17,13 +17,9 @@ Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json fil
    python3 -m pip install west pyelftools
    ``` 
 3. Make sure to add the executable `west.exe` into the **PATH** environment variable.
-4. To reuse the Arm GNU compiler toolchain installed by vcpkg in Keil Studio VS Code, add system environment variables:
-   - Set ```ZEPHYR_TOOLCHAIN_VARIANT``` to ```gnuarmemb```
-   - Set ```GNUARMEMB_TOOLCHAIN_PATH``` to ```\Users\<UserName>\.vcpkg\artifacts\...\compilers.arm.arm.none.eabi.gcc\14.3.1```
-   
-   Similar for Arm Compiler 6:
-   - Set ```ZEPHYR_TOOLCHAIN_VARIANT``` to ```armclang```
-   - Set ```ARMCLANG_TOOLCHAIN_PATH``` to ```\Users\<UserName>\.vcpkg\artifacts\...\compilers.arm.armclang\6.24.0```
+
+4. Manually download and [install](https://open-cmsis-pack.github.io/cmsis-toolbox/installation/#manual-setup) the experimental cmsis-toolbox from the following release assets:
+> https://github.com/brondani/cmsis-toolbox/releases/tag/2.12.0-dev1
 
 More details can be found in [Zephzr Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 

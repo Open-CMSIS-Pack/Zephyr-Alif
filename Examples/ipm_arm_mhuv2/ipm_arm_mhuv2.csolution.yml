@@ -10,6 +10,10 @@ solution:
     - type: DevKit-E7
       board: Alif Semiconductor::DevKit-E7
       device: Alif Semiconductor::AE722F80F55D5LS
+      variables:
+        - west-board: alif_e7_dk_rtss
+      west-defs:
+        - SE_SERVICES: OFF
       target-set:
         - set:
           debugger:
@@ -19,28 +23,36 @@ solution:
             clock: 10000000
             start-pname: M55_HE
           images:
-            - image: ./build_M55_HE/zephyr/zephyr.elf
-              device: :M55_HE
-            - image: ./build_M55_HP/zephyr/zephyr.elf
-              device: :M55_HP
-            - project-context: M55_HE
-              load: none
-            - project-context: M55_HP
-              load: none
+            - project-context: M55_HE.Debug
+            - project-context: M55_HP.Debug
 
-  executes:
-    - execute: GenImage_M55_HE
-      run: west build -d ../build_M55_HE/ -p auto -b alif_e7_dk_rtss_he ../rtss_he/ --
-                -DCONFIG_DEBUG=y -DCONFIG_DEBUG_THREAD_INFO=y -DSE_SERVICES=OFF -DRTSS_HP_MHU0=ON
-      always:
-    - execute: GenImage_M55_HP
-      run: west build -d ../build_M55_HP/ -p auto -b alif_e7_dk_rtss_hp ../rtss_hp/ --
-                -DCONFIG_DEBUG=y -DCONFIG_DEBUG_THREAD_INFO=y -DSE_SERVICES=OFF -DRTSS_HE_MHU0=ON
-      always:
-      
+  build-types:
+    - type: Debug
+      west-defs:
+        - CONFIG_DEBUG: y
+        - CONFIG_DEBUG_THREAD_INFO: y
+        - CONFIG_DEBUG_OPTIMIZATIONS: y
+    - type: Release
+      west-defs:
+        - CONFIG_SIZE_OPTIMIZATIONS: y
+
   # List related projects.
   projects:
     - project: ./M55_HE/M55_HE.cproject.yml
+      west:
+        project-id: M55_HE
+        app-path: ./rtss_he
+        board: $west-board$_he
+        device: :M55_HE
+        west-defs:
+          - RTSS_HP_MHU0: ON
     - project: ./M55_HP/M55_HP.cproject.yml
+      west:
+        project-id: M55_HP
+        app-path: ./rtss_hp
+        board: $west-board$_hp
+        device: :M55_HP
+        west-defs:
+          - RTSS_HE_MHU0: ON
 
-  compiler: AC6
+  compiler: GCC
