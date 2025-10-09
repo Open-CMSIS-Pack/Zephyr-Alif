@@ -16,8 +16,8 @@ Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json fil
    ``` 
 3. Make sure to add the executable `west.exe` into the **PATH** environment variable.
 
-4. Manually download and [install](https://open-cmsis-pack.github.io/cmsis-toolbox/installation/#manual-setup) the experimental cmsis-toolbox from the following release assets:
-   > https://github.com/brondani/cmsis-toolbox/releases/tag/2.12.0-dev1
+4. Manually download and [install](https://open-cmsis-pack.github.io/cmsis-toolbox/installation/#manual-setup) the latest cmsis-toolbox from the nightly build artifacts:
+   > https://github.com/Open-CMSIS-Pack/cmsis-toolbox/actions/workflows/nightly.yml
 
 More details can be found in [Zephyr Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
