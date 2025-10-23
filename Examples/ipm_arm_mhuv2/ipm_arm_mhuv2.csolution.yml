@@ -38,16 +38,14 @@ solution:
 
   # List related projects.
   projects:
-    - project: ./M55_HE/M55_HE.cproject.yml
-      west:
+    - west:
         project-id: M55_HE
         app-path: ./rtss_he
         board: $west-board$_he
         device: :M55_HE
         west-defs:
           - RTSS_HP_MHU0: ON
-    - project: ./M55_HP/M55_HP.cproject.yml
-      west:
+    - west:
         project-id: M55_HP
         app-path: ./rtss_hp
         board: $west-board$_hp
