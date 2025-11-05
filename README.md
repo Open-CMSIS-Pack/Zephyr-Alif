@@ -3,21 +3,19 @@ Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json fil
 
 [**Examples/ipm_arm_mhuv2**](https://github.com/Open-CMSIS-Pack/Zephyr-Alif/tree/main/Examples/ipm_arm_mhuv2) contains a [ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/main/samples/drivers/ipm/ipm_arm_mhuv2) CMSIS solution example project from [Alif-Zephyr-SDK](https://github.com/alifsemi/sdk-alif), which is built by Zephyr West tool and debugged by CMSIS-Debugger extension. This example demonstrates the dual-core debugging in Keil Studio and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores.
 
-# Steps to setup the required tools
+# Steps to setup the required tools for Zephyr
 1. Install dependencies to your PC:
    - python3
    - python3-pip
-   - wget
-   - cmake
-   - ninja
 2. Install west and pyelftools with this command:
    ```bash
-   python3 -m pip install west pyelftools
+   python3 -m pip install west pyelftools jsonschema
    ``` 
-3. Make sure to add the executable `west.exe` into the **PATH** environment variable.
-
-4. Manually download and [install](https://open-cmsis-pack.github.io/cmsis-toolbox/installation/#manual-setup) the latest cmsis-toolbox from the nightly build artifacts:
-   > https://github.com/Open-CMSIS-Pack/cmsis-toolbox/actions/workflows/nightly.yml
+3. Verify the west installation by running:
+   ```bash
+   west --version
+   ```
+   - In case you see the error `west: command not found`, add the west.exe in PATH if reqired
 
 More details can be found in [Zephyr Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
@@ -36,13 +34,34 @@ In VS Code use the menu command **"Terminal - Run Tasks"** and execute:
 # Steps to build and debug the Zephyr example
 1. Open the folder *./Zephyr-Alif* in VS code.
 
-2. Initialize and update the Zephyr workspace, if none exists:
-   - Use the menu command **"Terminal - Run Tasks"** and execute:
-      - "Setup Zephyr-Alif workspace"
-   - Now the required Zephyr and Alif modules can be found under the *./Zephyr-Alif/Zephyr-Workspace* folder.
+2. In Terminal, initialize and update the Zephyr SDK-Alif workspace, if none exists:
+   ```bash
+   mkdir -p zephyrproject
+   cd ./zephyrproject
+   west init -m https://github.com/alifsemi/sdk-alif.git --mr v1.3.2
+   west update 
+   ```
 
-3. To use the west tools for projects located in different folders:
-   - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr```, and restart the VS Code.
+3. To use the west tools for projects located in different folders, set the `ZEPHYR_BASE` environment variable to the *./Zephyr-Alif/zephyrproject/zephyr* folder:
+
+   **For Ubuntu:**
+
+   ```bash
+   (echo; echo 'export ZEPHYR_BASE="/home/.../zephyrproject/zephyr"') >> ~/.bashrc
+   source ~/.bashrc
+   ```
+   - Make sure to restart the VS Code.
+
+   **For MacOS:**
+
+   ```bash
+   (echo; echo 'export ZEPHYR_BASE="/usr/.../zephyrproject/zephyr"') >> ~/.zshrc
+   source ~/.zshrc
+   ```
+   - Make sure to fully quit VS Code, not just close the window. Otherwise, the changes won’t be applied.
+
+   **For Windows:**
+      - Set ```ZEPHYR_BASE``` to ```C:/.../Zephyr-Workspace/zephyr``` in Environment Variables, and restart the VS Code.
 
 4. Press the **"Build solution"** button to build the example.
 
