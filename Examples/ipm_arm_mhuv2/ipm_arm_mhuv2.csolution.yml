@@ -32,7 +32,6 @@ solution:
         - CONFIG_DEBUG: y
         - CONFIG_DEBUG_THREAD_INFO: y
         - CONFIG_DEBUG_OPTIMIZATIONS: y
-        - CONFIG_THREAD_STACK_INFO: y
     - type: Release
       west-defs:
         - CONFIG_SIZE_OPTIMIZATIONS: y
