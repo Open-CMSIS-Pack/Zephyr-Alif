@@ -1,7 +1,7 @@
 # A solution is a collection of related projects that share same base configuration.
 solution:
   created-for: CMSIS-Toolbox@2.12.0
-  
+
   packs:
     - pack: AlifSemiconductor::Ensemble@^2.0.0-0
 
@@ -12,8 +12,6 @@ solution:
       device: Alif Semiconductor::AE722F80F55D5LS
       variables:
         - west-board: alif_e7_dk_rtss
-      west-defs:
-        - SE_SERVICES: OFF
       target-set:
         - set:
           debugger:
@@ -23,8 +21,7 @@ solution:
             clock: 10000000
             start-pname: M55_HE
           images:
-            - project-context: M55_HE.Debug
-            - project-context: M55_HP.Debug
+            - project-context: LPI2C.Debug
 
   build-types:
     - type: Debug
@@ -40,18 +37,9 @@ solution:
   # List related projects.
   projects:
     - west:
-        project-id: M55_HE
-        app-path: ./rtss_he
+        project-id: LPI2C
+        app-path: ./lpi2c
         board: $west-board$_he
         device: :M55_HE
-        west-defs:
-          - RTSS_HP_MHU0: ON
-    - west:
-        project-id: M55_HP
-        app-path: ./rtss_hp
-        board: $west-board$_hp
-        device: :M55_HP
-        west-defs:
-          - RTSS_HE_MHU0: ON
 
   compiler: GCC
