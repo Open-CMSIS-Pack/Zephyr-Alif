@@ -1,12 +1,12 @@
 # Zephyr-Alif (Work in Progress)
-Zephyr examples for an Alif Semiconductor DK-E7 board. The debug launch.json file has been adapted to load the ELF image built by the Zephyr West tool debugged by the [CMSIS-Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) extension.
+Zephyr examples for an Alif Semiconductor AK/DK-E7 board. The debug launch.json file has been adapted to load the ELF image built by the Zephyr West tool debugged by the [CMSIS-Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) extension.
 
 ## Examples Description
 
 | Example name                              | Description   |
 |---                                        |---            |
-| [IPM_ARM_MHUv2](./Examples/IPM_ARM_MHUv2/) | This example demonstrates the dual-core debugging and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores. More details in [Alif-Zephyr-SDK (ipm_arm_mhuv2)](https://github.com/alifsemi/sdk-alif/tree/v1.3.2/samples/drivers/ipm/ipm_arm_mhuv2). |
-| [LPI2C](./Examples/LPI2C/) | LPI2C (Low Power Inter-Integrated Circuit) is a low-power version of the standard I2C bus controller. This example uses two threads to emulate an I2C master and slave communicating through the LPI2C driver. All data transfers occur internally via hardware loopback. More details in [Alif-Zephyr-SDK (lpi2c)](https://github.com/alifsemi/sdk-alif/tree/v1.3.2/samples/drivers/lpi2c). |
+| [IPM_ARM_MHUv2](./Examples/IPM_ARM_MHUv2/) | This example demonstrates the dual-core debugging and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores. More details in [Alif-Zephyr-SDK/ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/v1.3.2/samples/drivers/ipm/ipm_arm_mhuv2). |
+| [LPI2C](./Examples/LPI2C/) | LPI2C (Low Power Inter-Integrated Circuit) is a low-power version of the standard I2C bus controller. This example uses two threads to emulate an I2C master and slave communicating through the LPI2C driver. All data transfers occur internally via hardware loopback. More details in [Alif-Zephyr-SDK/lpi2c](https://github.com/alifsemi/sdk-alif/tree/v1.3.2/samples/drivers/lpi2c). |
 
 # Steps to setup the required tools for Zephyr
 1. Install dependencies to your PC:
