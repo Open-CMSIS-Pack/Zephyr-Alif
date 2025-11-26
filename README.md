@@ -87,10 +87,16 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
 
 - Open a `cmd.exe` terminal window as a regular user.
 
+- Create a `zephyrproject` directory and change into it:
+
+  ```sh
+  mkdir zephyrproject
+  cd zephyrproject
+  ```
+
 - Create a new virtual environment:
 
   ```sh
-  cd %HOMEPATH%
   python -m venv .venv
   ```
 
@@ -124,7 +130,7 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
   west packages pip --install
   ```
 
-- Set the `ZEPHYR_BASE` environment variable to `C:\...\Zephyr-Workspace\zephyr` in
+- Set the `ZEPHYR_BASE` environment variable to `C:\...\zephyrproject\zephyr` in
   [Environment Variables](https://learn.microsoft.com/en-us/answers/questions/4330946/change-system-variables-on-windows-11).
 
 - Make sure to restart the VS Code.
