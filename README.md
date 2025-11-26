@@ -43,7 +43,7 @@ In VS Code use the menu command **"Terminal - Run Tasks"** and execute:
    ```bash
    mkdir -p zephyrproject
    cd ./zephyrproject
-   west init -m https://github.com/alifsemi/sdk-alif.git --mr v1.3.2
+   west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
    west update 
    ```
 
