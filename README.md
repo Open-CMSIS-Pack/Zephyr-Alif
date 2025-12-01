@@ -138,7 +138,7 @@ Make sure to fully quit VS Code, not just close the window. Otherwise, the chang
 
     - Set the `ZEPHYR_BASE` environment variable to `C:\...\sdk-alif\zephyr` in
 
-    - Set the Windows path to the virtual environment, for example `C:\...\sdk-alif\.venv\Scripts`. Make sure that his path is used first. 
+    - Set the Windows path to the virtual environment, for example `C:\...\sdk-alif\.venv\Scripts`. Make sure that this path is used first. 
 
 - Restart the VS Code.
 
