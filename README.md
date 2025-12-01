@@ -11,10 +11,13 @@ and run the image on the target hardware.
 1. Make sure that your host OS is up-to-date.
 2. Install the following dependencies using your favorite package manager:
     - Cmake (min. version 3.20.5)
-    - Python (min. version 3.10)
+    - Python (versions 3.10 - 3.13, see warning below)
 3. Clone this repository onto your machine.
 4. Install Zephyr on your machine (refer to [Linux and macOS](#linux-and-macos)/[Windows](#windows)).
 5. [Work with the example](#work-with-the-example)
+
+> [!WARNING]
+> Do not install Python 3.14 or above as the Python package `windows-curses` is not yet available!
 
 ## Zephyr installation
 
@@ -22,11 +25,11 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
 
 ### Linux and macOS
 
-- In your home directory, create a `zephyrproject` directory and change into it:
+- In your home directory, create a `sdk-alif` directory and change into it:
 
   ```sh
-  mkdir zephyrproject
-  cd zephyrproject
+  mkdir sdk-alif
+  cd sdk-alif
   ```
 
 - Create a new virtual environment:
@@ -53,7 +56,7 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
 - Get the Zephyr source code using the Alif SDK:
 
   ```sh
-  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
+  west init -m https://github.com/alifsemi/sdk-alif.git
   west update
   ```
 
@@ -63,35 +66,39 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
   west packages pip --install
   ```
 
-- Set the `ZEPHYR_BASE` environment variable to the `/zephyrproject/zephyr` folder:
+- Set the `ZEPHYR_BASE` environment variable to the `/sdk-alif/zephyr` folder:
 
   **Linux**
   
   ```sh
-  (echo; echo 'export ZEPHYR_BASE="/home/.../zephyrproject/zephyr"') >> ~/.bashrc
+  (echo; echo 'export ZEPHYR_BASE="/home/.../sdk-alif/zephyr"') >> ~/.bashrc
   source ~/.bashrc
   ```
-
-  Make sure to restart the VS Code.
 
   **macOS**
   
   ```sh
-  (echo; echo 'export ZEPHYR_BASE="/usr/.../zephyrproject/zephyr"') >> ~/.zshrc
+  (echo; echo 'export ZEPHYR_BASE="/usr/.../sdk-alif/zephyr"') >> ~/.zshrc
   source ~/.zshrc
   ```
+
+- In your `.bashrc` or `.zshrc`, source the vritual environment:
+
+  ```sh
+  source /Users/user/sdk-alif/.venv/bin/activate
+  ```
   
-  Make sure to fully quit VS Code, not just close the window. Otherwise, the changes won’t be applied.
+Make sure to fully quit VS Code, not just close the window. Otherwise, the changes won’t be applied.
 
 ### Windows
 
 - Open a `cmd.exe` terminal window as a regular user.
 
-- Create a `zephyrproject` directory and change into it:
+- Create a `sdk-alif` directory and change into it:
 
   ```sh
-  mkdir zephyrproject
-  cd zephyrproject
+  mkdir sdk-alif
+  cd sdk-alif
   ```
 
 - Create a new virtual environment:
@@ -108,9 +115,6 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
 
   Once activated your shell will be prefixed with (.venv). The virtual environment can be deactivated at any time by running deactivate.
 
-> [!Note]
-> Remember to activate the virtual environment every time you start working.
-
 - Install west:
 
   ```sh
@@ -120,7 +124,7 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
 - Get the Zephyr source code using the Alif SDK:
 
   ```sh
-  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
+  west init -m https://github.com/alifsemi/sdk-alif.git
   west update
   ```
 
@@ -130,10 +134,13 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
   west packages pip --install
   ```
 
-- Set the `ZEPHYR_BASE` environment variable to `C:\...\zephyrproject\zephyr` in
-  [Environment Variables](https://learn.microsoft.com/en-us/answers/questions/4330946/change-system-variables-on-windows-11).
+- Open the [Environment Variables](https://learn.microsoft.com/en-us/answers/questions/4330946/change-system-variables-on-windows-11) and
 
-- Make sure to restart the VS Code.
+    - Set the `ZEPHYR_BASE` environment variable to `C:\...\sdk-alif\zephyr` in
+
+    - Set the Windows path to the virtual environment, for example `C:\...\sdk-alif\.venv\Scripts`. Make sure that his path is used first. 
+
+- Restart the VS Code.
 
 ## SETOOLS
 
