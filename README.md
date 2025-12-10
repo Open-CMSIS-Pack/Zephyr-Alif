@@ -142,6 +142,20 @@ Make sure to fully quit VS Code, not just close the window. Otherwise, the chang
 
 - Restart the VS Code.
 
+## CMSIS Solution Extension version 1.62.2-50-g7e836a0 or higher
+
+The CMSIS Solution Extension version 1.64 provides a [Settings dialog](https://code.visualstudio.com/docs/configure/settings) that configures the Zephyr environment under **Cmsis-csolution: Environment Variables**.  The file `settings.json` stores these settings and can be user or workspace specific.
+
+**Example `settings.json` file**
+
+```json
+    "cmsis-csolution.environmentVariables": {
+        "PATH": "C:\\...\\sdk-alif\\.venv\\Scripts",
+        "VIRTUAL_ENV": "C:\\...\\sdk-alif\\.venv",
+        "ZEPHYR_BASE": "C:\\...\\sdk-alif\\zephyr"
+    },
+```
+
 ## SETOOLS
 
 Before flashing this example on the AppKit E7 board it is required to program the ATOC of the device using the Alif

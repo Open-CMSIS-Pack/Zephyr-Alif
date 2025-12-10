@@ -26,6 +26,23 @@ solution:
             - project-context: M55_HE.Debug
             - project-context: M55_HP.Debug
 
+    - type: DevKit-E8
+      board: Alif Semiconductor::DevKit-E8
+      device: Alif Semiconductor::AE822FA0E5597LS0
+      variables:
+        - west-board: alif_e8_dk/ae822fa0e5597xx0/rtss
+      target-set:
+        - set:
+          images:
+            - project-context: M55_HP.Debug
+            - project-context: M55_HE.Debug
+          debugger:
+            name: J-Link Server
+            port: 3333
+            protocol: swd
+            clock: 4000000
+            start-pname: M55_HE
+
   build-types:
     - type: Debug
       west-defs:
