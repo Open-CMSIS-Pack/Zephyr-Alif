@@ -56,7 +56,7 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
 - Get the Zephyr source code using the Alif SDK:
 
   ```sh
-  west init -m https://github.com/alifsemi/sdk-alif.git
+  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
   west update
   ```
 
@@ -124,7 +124,7 @@ Make sure to fully quit VS Code, not just close the window. Otherwise, the chang
 - Get the Zephyr source code using the Alif SDK:
 
   ```sh
-  west init -m https://github.com/alifsemi/sdk-alif.git
+  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
   west update
   ```
 
@@ -142,7 +142,7 @@ Make sure to fully quit VS Code, not just close the window. Otherwise, the chang
 
 - Restart the VS Code.
 
-## CMSIS Solution Extension version 1.62.2-50-g7e836a0 or higher
+## CMSIS Solution Extension version 1.64.0 or higher
 
 The CMSIS Solution Extension version 1.64 provides a [Settings dialog](https://code.visualstudio.com/docs/configure/settings) that configures the Zephyr environment under **Cmsis-csolution: Environment Variables**.  The file `settings.json` stores these settings and can be user or workspace specific.
 
