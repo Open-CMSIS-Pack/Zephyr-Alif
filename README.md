@@ -8,20 +8,26 @@ and run the image on the target hardware.
 
 ## Quick start
 
-1. Make sure that your host OS is up-to-date.
-2. Install the following dependencies using your favorite package manager:
-    - Cmake (min. version 3.20.5)
-    - Python (versions 3.10 - 3.13, see warning below)
-3. Clone this repository onto your machine.
-4. Install Zephyr on your machine (refer to [Linux and macOS](#linux-and-macos)/[Windows](#windows)).
-5. [Work with the example](#work-with-the-example)
+- Clone this repository onto your machine.
+- [Install Zephyr SDK-Alif](#zephyr-installation).
+- Open this repository in VS Code. It should install required extensions automatically.
+- In the CMSIS view, click on **...**, use **Open Solution in Workspace**, and choose your desired project.
+- Set the environment variables for Zephyr workspace and Python virtual environoment as explained in the [Keil Studio documentation](https://mdk-packs.github.io/vscode-cmsis-solution-docs/zephyr.html#set-environment-variables).
+- Make sure to fully restart the VS Code.
+- Press the **Manage Solution Settings** button. In the dialog, select the target board and application.
+- Press the **Build solution** button to build the example.
+- Press the **Load & Debug application** button to start a debug session.
+- [Work with the example](#work-with-the-example).
+
+> [!NOTE]
+> Check that the **Arm CMSIS Solution** extension is at least v1.64.0.
 
 > [!WARNING]
 > Do not install Python 3.14 or above as the Python package `windows-curses` is not yet available!
 
 ## Zephyr installation
 
-This chapter contains installation instructions for [Linux and macOS](#linux-and-macos) and [Windows](#windows)).
+This chapter contains installation instructions for [Linux and macOS](#linux-and-macos) and [Windows](#windows).
 
 ### Linux and macOS
 
@@ -65,30 +71,6 @@ This chapter contains installation instructions for [Linux and macOS](#linux-and
   ```sh
   west packages pip --install
   ```
-
-- Set the `ZEPHYR_BASE` environment variable to the `/sdk-alif/zephyr` folder:
-
-  **Linux**
-  
-  ```sh
-  (echo; echo 'export ZEPHYR_BASE="/home/.../sdk-alif/zephyr"') >> ~/.bashrc
-  source ~/.bashrc
-  ```
-
-  **macOS**
-  
-  ```sh
-  (echo; echo 'export ZEPHYR_BASE="/usr/.../sdk-alif/zephyr"') >> ~/.zshrc
-  source ~/.zshrc
-  ```
-
-- In your `.bashrc` or `.zshrc`, source the vritual environment:
-
-  ```sh
-  source /Users/user/sdk-alif/.venv/bin/activate
-  ```
-  
-Make sure to fully quit VS Code, not just close the window. Otherwise, the changes won’t be applied.
 
 ### Windows
 
@@ -134,28 +116,6 @@ Make sure to fully quit VS Code, not just close the window. Otherwise, the chang
   west packages pip --install
   ```
 
-- Open the [Environment Variables](https://learn.microsoft.com/en-us/answers/questions/4330946/change-system-variables-on-windows-11) and
-
-    - Set the `ZEPHYR_BASE` environment variable to `C:\...\sdk-alif\zephyr` in
-
-    - Set the Windows path to the virtual environment, for example `C:\...\sdk-alif\.venv\Scripts`. Make sure that this path is used first. 
-
-- Restart the VS Code.
-
-## CMSIS Solution Extension version 1.64.0 or higher
-
-The CMSIS Solution Extension version 1.64 provides a [Settings dialog](https://code.visualstudio.com/docs/configure/settings) that configures the Zephyr environment under **Cmsis-csolution: Environment Variables**.  The file `settings.json` stores these settings and can be user or workspace specific.
-
-**Example `settings.json` file**
-
-```json
-    "cmsis-csolution.environmentVariables": {
-        "PATH": "C:\\...\\sdk-alif\\.venv\\Scripts",
-        "VIRTUAL_ENV": "C:\\...\\sdk-alif\\.venv",
-        "ZEPHYR_BASE": "C:\\...\\sdk-alif\\zephyr"
-    },
-```
-
 ## SETOOLS
 
 Before flashing this example on the AppKit E7 board it is required to program the ATOC of the device using the Alif
@@ -177,16 +137,11 @@ In VS Code use the menu command **"Terminal - Run Tasks"** and execute:
 
 ## Work with the example
 
-1. Open the cloned repository's folder in VS Code.
-2. In the CMSIS view, click on **...**, use **Select Active Solution from workspace**, and choose an option.
-3. Press the **Manage Solution Settings** button. In the dialog, select the target board and application.
-4. Press the **Build solution** button to build the example.
-5. Start the CMSIS Debugger:
-
-- Start the **M55_HE CMSIS_DAP@pyOCD (launch)** debug session first, followed by **M55_HP CMSIS_DAP@pyOCD (attach)**.
+When working on dual-core projects,
+- Start the **M55_HP CMSIS_DAP@pyOCD (launch)** debug session first, followed by **M55_HE CMSIS_DAP@pyOCD (attach)**.
 - After starting the second debug session, the program will halt at `cpu_idle.S`. This occurs because the second core
   still remains in its idle loop until a valid entry point s reached. To resolve this, add the following command under
-  the **M55_HP CMSIS_DAP@pyOCD (attach)** section in the launch.json file:
+  the **M55_HE CMSIS_DAP@pyOCD (attach)** section in the launch.json file:
 
   ```bash
   "initCommands": [
