@@ -7,6 +7,9 @@ download the image to flash memory and run it on the target hardware.
 
 ## Quick start
 
+The example setup uses an Arm [ULINKplus debug adapter](https://www.arm.com/products/development-tools/debug-probes/ulink-plus) connected to the
+[Alif Semiconductor DevKit-E7](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e7-d1-cd88670/guide/).
+
 - Install the [Arm Keil Studio Pack for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack),
   then clone this repository and open its folder in VS Code.
 - [Install Alif Zephyr SDK 2.3](#zephyr-installation) and [configure its environment variables](#configure-vs-code).
@@ -108,7 +111,7 @@ For more information, see [Work with Zephyr applications](https://mdk-packs.gith
 
 ## SETOOLS
 
-Before flashing an example to the AppKit E7 board, program the device's ATOC using Alif SETOOLS. This process only has
+Before flashing an example to the DevKit-E7 board, program the device's ATOC using Alif SETOOLS. This process only has
 to be performed once for each single- or dual-core project.
 
 Refer to the section [Usage](https://github.com/alifsemi/alif_ensemble-cmsis-dfp/blob/main/docs/Overview.md#usage)

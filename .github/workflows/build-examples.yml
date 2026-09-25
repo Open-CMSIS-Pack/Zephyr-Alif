@@ -1,0 +1,59 @@
+name: Build examples
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: IPM_ARM_MHUv2
+            directory: Examples/IPM_ARM_MHUv2
+            solution: ipm_arm_mhuv2.csolution.yml
+          - name: LPI2C
+            directory: Examples/LPI2C
+            solution: lpi2c.csolution.yml
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up CMSIS build tools
+        uses: ARM-software/cmsis-actions/vcpkg@v1
+        with:
+          config: ./vcpkg-configuration.json
+          cache: cmsis-tools-${{ runner.os }}-${{ hashFiles('vcpkg-configuration.json') }}
+
+      - name: Set up Alif Zephyr SDK
+        shell: bash
+        run: |
+          python -m pip install west
+          mkdir sdk-alif
+          cd sdk-alif
+          west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.3.0
+          west update
+          python -m pip install -r zephyr/scripts/requirements.txt
+
+      - name: Build
+        working-directory: ${{ matrix.directory }}
+        env:
+          ZEPHYR_BASE: ${{ github.workspace }}/sdk-alif/zephyr
+        run: cbuild ${{ matrix.solution }} --packs --active DevKit-E7
