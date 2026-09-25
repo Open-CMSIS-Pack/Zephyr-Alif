@@ -1,147 +1,138 @@
 # Zephyr-Alif (Work in Progress)
 
-This repository contains an exemplary CMSIS solution file that can be used to build two Zephyr basic examples on
-Alif development boards. It can be easily adapted to other boards or examples. It uses Zephyr's `west` build
-system to create the executable file for an application and the
-[Arm CMSIS Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) to flash download
-and run the image on the target hardware.
+This repository contains an example CMSIS solution that builds two basic Zephyr examples for Alif development boards.
+It can be easily adapted to other boards or examples. It uses Zephyr's `west` build system to create the application
+image and the [Arm CMSIS Debugger](https://marketplace.visualstudio.com/items?itemName=Arm.vscode-cmsis-debugger) to
+download the image to flash memory and run it on the target hardware.
 
 ## Quick start
 
-- Clone this repository onto your machine.
-- [Install Zephyr SDK-Alif](#zephyr-installation).
-- Open this repository in VS Code. It should install required extensions automatically.
-- In the CMSIS view, click on **...**, use **Open Solution in Workspace**, and choose your desired project.
-- Set the environment variables for Zephyr workspace and Python virtual environoment as explained in the [Keil Studio documentation](https://mdk-packs.github.io/vscode-cmsis-solution-docs/zephyr.html#set-environment-variables).
-- Make sure to fully restart the VS Code.
-- Press the **Manage Solution Settings** button. In the dialog, select the target board and application.
-- Press the **Build solution** button to build the example.
-- Press the **Load & Debug application** button to start a debug session.
-- [Work with the example](#work-with-the-example).
+- Install the [Arm Keil Studio Pack for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack),
+  then clone this repository and open its folder in VS Code.
+- [Install Alif Zephyr SDK 2.3](#zephyr-installation) and [configure its environment variables](#configure-vs-code).
+- Restart VS Code, then select **CMSIS > ... > Open Solution in Workspace** and open an example's
+  `*.csolution.yml` file.
+- Use **Manage Solution Settings** to select the board and application, then **Build solution**.
+- Connect the board and select **Load & Debug application**. See [Work with the example](#work-with-the-example) for
+  dual-core projects.
 
 > [!NOTE]
-> Check that the **Arm CMSIS Solution** extension is at least v1.64.0.
-
-> [!WARNING]
-> Do not install Python 3.14 or above as the Python package `windows-curses` is not yet available!
+> Ensure that the **Arm CMSIS Solution** extension is version 1.72.0 or later.
 
 ## Zephyr installation
 
-This chapter contains installation instructions for [Linux and macOS](#linux-and-macos) and [Windows](#windows).
+The following instructions apply to Linux, macOS, and Windows. Install a supported version of Python 3 and Git before
+continuing.
 
-### Linux and macOS
+> [!WARNING]
+> On Windows, use Python 3.13 or earlier because the `windows-curses` package is not yet available for Python 3.14.
 
-- In your home directory, create a `sdk-alif` directory and change into it:
+### Create the workspace
 
-  ```sh
+- Open a terminal as a regular user. On Windows, use `cmd.exe` for the commands below.
+
+- In any suitable working directory, create an `sdk-alif` directory and change into it:
+
+  ```console
   mkdir sdk-alif
   cd sdk-alif
   ```
 
-- Create a new virtual environment:
+- Create a virtual environment. Use the command for your operating system:
+
+  Linux and macOS:
 
   ```sh
   python3 -m venv .venv
   ```
 
-- Activate the virtual environment:
+  Windows:
+
+  ```bat
+  python -m venv .venv
+  ```
+
+- Activate the virtual environment.
+
+  Linux and macOS:
 
   ```sh
   source .venv/bin/activate
   ```
 
-  Once activated, your shell will be prefixed with (.venv). The virtual environment can be deactivated at any time by
-  running `deactivate`.
+  Windows (`cmd.exe`):
 
-- Install west:
-
-  ```sh
-  pip install west
-  ```
-
-- Get the Zephyr source code using the Alif SDK:
-
-  ```sh
-  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
-  west update
-  ```
-
-- Install Python dependencies using west packages:
-
-  ```sh
-  west packages pip --install
-  ```
-
-### Windows
-
-- Open a `cmd.exe` terminal window as a regular user.
-
-- Create a `sdk-alif` directory and change into it:
-
-  ```sh
-  mkdir sdk-alif
-  cd sdk-alif
-  ```
-
-- Create a new virtual environment:
-
-  ```sh
-  python -m venv .venv
-  ```
-
-- Activate the virtual environment:
-
-  ```sh
+  ```bat
   .venv\Scripts\activate.bat
   ```
 
-  Once activated your shell will be prefixed with (.venv). The virtual environment can be deactivated at any time by running deactivate.
+  Once activated, the shell prompt is prefixed with `(.venv)`. Activate the environment again whenever you open a
+  new terminal. Run `deactivate` to leave it.
 
-- Install west:
+- Install west. After activation, `python` refers to the virtual environment on every supported operating system:
 
-  ```sh
-  pip install west
+  ```console
+  python -m pip install west
   ```
 
 - Get the Zephyr source code using the Alif SDK:
 
-  ```sh
-  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.0.0
+  ```console
+  west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.3.0
   west update
   ```
 
-- Install Python dependencies using west packages.
+- Install the Python dependencies required by Zephyr:
 
-  ```sh
-  west packages pip --install
+  ```console
+  python -m pip install -r zephyr/scripts/requirements.txt
   ```
+
+### Configure VS Code
+
+The CMSIS Solution extension needs the Zephyr workspace and virtual environment paths when it runs `west`.
+
+1. In VS Code, open **Settings** and search for **Cmsis-Csolution: Environment Variables**.
+2. Select the **User** or **Workspace** setting and choose **Add Item** for each variable below. Replace the example
+   prefix with the absolute path to your `sdk-alif` directory.
+
+   | Variable | Linux and macOS | Windows |
+   |---|---|---|
+   | `ZEPHYR_BASE` | `/work/sdk-alif/zephyr` | `C:\work\sdk-alif\zephyr` |
+   | `PATH` | `/work/sdk-alif/.venv/bin` | `C:\work\sdk-alif\.venv\Scripts` |
+   | `VIRTUAL_ENV` | `/work/sdk-alif/.venv` | `C:\work\sdk-alif\.venv` |
+
+3. Fully restart VS Code so that the extension uses the new environment.
+
+For more information, see [Work with Zephyr applications](https://mdk-packs.github.io/vscode-cmsis-solution-docs/zephyr.html#set-environment-variables).
 
 ## SETOOLS
 
-Before flashing this example on the AppKit E7 board it is required to program the ATOC of the device using the Alif
-SETOOLS. This process only has to be done once for each single- or dual-core project.
+Before flashing an example to the AppKit E7 board, program the device's ATOC using Alif SETOOLS. This process only has
+to be performed once for each single- or dual-core project.
 
 Refer to the section [Usage](https://github.com/alifsemi/alif_ensemble-cmsis-dfp/blob/main/docs/Overview.md#usage)
-in the overview page of the Alif Semiconductor Ensemble DFP/BSP for information on how to setup these tools.
+on the Alif Semiconductor Ensemble DFP/BSP overview page for information about how to set up these tools.
 
-In VS Code use the menu command **"Terminal - Run Tasks"** and execute:
+In VS Code, select **Terminal > Run Task** and run:
 
-- "Alif: Install M55_HE and M55_HP debug stubs (dual core configuration)"
+- **Alif: Install M55_HE and M55_HP debug stubs (dual core configuration)**
 
-## Examples Description
+## Example descriptions
 
 | Example name                              | Description   |
 |---                                        |---            |
-| [IPM_ARM_MHUv2](./Examples/IPM_ARM_MHUv2/) | This example demonstrates the dual-core debugging and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2) . Also, it showcases the use of Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between cores. More details in [Alif-Zephyr-SDK/ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/v2.0.0/samples/drivers/ipm/ipm_arm_mhuv2). |
-| [LPI2C](./Examples/LPI2C/) | LPI2C (Low Power Inter-Integrated Circuit) is a low-power version of the standard I2C bus controller. This example uses two threads to emulate an I2C master and slave communicating through the LPI2C driver. All data transfers occur internally via hardware loopback. More details in [Alif-Zephyr-SDK/lpi2c](https://github.com/alifsemi/sdk-alif/tree/v2.0.0/samples/drivers/lpi2c). |
+| [IPM_ARM_MHUv2](./Examples/IPM_ARM_MHUv2/) | This example demonstrates dual-core debugging and inter-core communication between two Cortex-M55 cores using Arm's Message Handling Unit v2 (MHUv2). It uses Zephyr's Inter-Processor Mailbox (IPM) API to exchange messages and trigger interrupts between the cores. More details in [Alif-Zephyr-SDK/ipm_arm_mhuv2](https://github.com/alifsemi/sdk-alif/tree/v2.3.0/samples/drivers/ipm/ipm_arm_mhuv2). |
+| [LPI2C](./Examples/LPI2C/) | LPI2C (Low Power Inter-Integrated Circuit) is a low-power version of the standard I2C bus controller. This example uses two threads to emulate an I2C master and slave communicating through the LPI2C driver. All data transfers occur internally via hardware loopback. More details in [Alif-Zephyr-SDK/lpi2c](https://github.com/alifsemi/sdk-alif/tree/v2.3.0/samples/drivers/lpi2c). |
 
 ## Work with the example
 
-When working on dual-core projects,
+When working on a dual-core project:
+
 - Start the **M55_HP CMSIS_DAP@pyOCD (launch)** debug session first, followed by **M55_HE CMSIS_DAP@pyOCD (attach)**.
 - After starting the second debug session, the program will halt at `cpu_idle.S`. This occurs because the second core
-  still remains in its idle loop until a valid entry point s reached. To resolve this, add the following command under
-  the **M55_HE CMSIS_DAP@pyOCD (attach)** section in the launch.json file:
+  remains in its idle loop until it receives a valid entry point. To resolve this, add the following commands to the
+  **M55_HE CMSIS_DAP@pyOCD (attach)** section in `launch.json`:
 
   ```bash
   "initCommands": [
@@ -150,4 +141,4 @@ When working on dual-core projects,
   ]
   ```
 
-- And remember to set `updateConfiguration:` to `manual` in order to prevent your settings from being overwritten.
+- Set `updateConfiguration` to `manual` to prevent your settings from being overwritten.
