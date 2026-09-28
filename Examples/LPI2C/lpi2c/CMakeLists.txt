@@ -7,6 +7,9 @@
 # contact@alifsemi.com, or visit: https://alifsemi.com/license
 
 cmake_minimum_required(VERSION 3.20.0)
+
+set(CMAKE_POLICY_DEFAULT_CMP0123 NEW)
+
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(lpi2c)
 

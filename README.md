@@ -13,8 +13,8 @@ The example setup uses an Arm [ULINKplus debug adapter](https://www.arm.com/prod
 - Install the [Arm Keil Studio Pack for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack),
   then clone this repository and open its folder in VS Code.
 - [Install Alif Zephyr SDK 2.3](#zephyr-installation) and [configure its environment variables](#configure-vs-code).
-- Restart VS Code, then select **CMSIS > ... > Open Solution in Workspace** and open an example's
-  `*.csolution.yml` file.
+- Restart VS Code, then select **CMSIS > ... > Open Solution in Workspace** and open the example's
+  `*-gcc.csolution.yml` or `*-ac6.csolution.yml` file for the compiler you want to use.
 - Use **Manage Solution Settings** to select the board and application, then **Build solution**.
 - Connect the board and select **Load & Debug application**. See [Work with the example](#work-with-the-example) for
   dual-core projects.
@@ -85,6 +85,15 @@ continuing.
   west update
   ```
 
+- Apply the Arm Compiler linker compatibility patch required by Alif SDK 2.3. Replace `/path/to/Zephyr-Alif-1` with
+  the absolute path to this repository:
+
+  ```console
+  git -C zephyr apply /path/to/Zephyr-Alif-1/.github/patches/sdk-alif-v2.3.0-armclang-linker.patch
+  ```
+
+  The patch is harmless for GCC builds and is also applied by this repository's CI workflow.
+
 - Install the Python dependencies required by Zephyr:
 
   ```console
@@ -109,6 +118,35 @@ The CMSIS Solution extension needs the Zephyr workspace and virtual environment 
 
 For more information, see [Work with Zephyr applications](https://mdk-packs.github.io/vscode-cmsis-solution-docs/zephyr.html#set-environment-variables).
 
+### C library selection
+
+Each example has a separate CMSIS solution for each compiler and explicitly selects that compiler's default C
+library:
+
+| Solution filename | Compiler | C library |
+|---|---|---|
+| `*-gcc.csolution.yml` | GCC | Full Newlib |
+| `*-ac6.csolution.yml` | Arm Compiler 6 | Arm Compiler C library |
+
+GCC solutions select full Newlib:
+
+```yml
+west-defs:
+  - CONFIG_NEWLIB_LIBC: y
+  - CONFIG_NEWLIB_LIBC_NANO: n
+```
+
+AC6 projects use the Arm Compiler C library:
+
+```yml
+west-defs:
+  - CONFIG_ARMCLANG_STD_LIBC: y
+```
+
+These definitions are passed to Zephyr by `west build`. The selection is explicit because
+`CONFIG_REQUIRES_FULL_LIBC` only requests any complete C library and may select Picolibc instead of the library
+provided by the compiler toolchain.
+
 ## SETOOLS
 
 Before flashing an example to the DevKit-E7 board, program the device's ATOC using Alif SETOOLS. This process only has
@@ -120,6 +158,24 @@ on the Alif Semiconductor Ensemble DFP/BSP overview page for information about h
 In VS Code, select **Terminal > Run Task** and run:
 
 - **Alif: Install M55_HE and M55_HP debug stubs (dual core configuration)**
+
+## DevKit-E7 UART console
+
+The DevKit-E7 routes one application UART at a time to the second channel of the on-board USB-to-UART bridge. Connect
+the **PRG USB** port and configure header **J26** for the core whose `printk` output you want to monitor:
+
+| Core | Console UART | J26 jumpers |
+|---|---|---|
+| M55_HE (RTSS-HE) | UART4 | Pins 3-5 and 4-6 (factory default) |
+| M55_HP (RTSS-HP) | UART2 | Pins 1-3 and 2-4 |
+
+Open the application UART serial port at **115200 baud, 8 data bits, no parity, and 1 stop bit (8-N-1)**. Do not use
+the other USB serial channel, which is the SEUART used by SETOOLS for programming. Power off the board before moving
+the J26 jumpers.
+
+J26 cannot connect UART2 and UART4 to the on-board bridge simultaneously. To monitor output from both cores in the
+`IPM_ARM_MHUv2` example, connect a separate **1.8 V-compatible** USB-to-UART adapter and a common ground to the UART
+that is not selected by J26.
 
 ## Example descriptions
 

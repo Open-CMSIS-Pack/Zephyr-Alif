@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   build:
-    name: ${{ matrix.solution.name }} / ${{ matrix.target }} / ${{ matrix.build-type }} / ${{ matrix.compiler }}
+    name: ${{ matrix.solution.name }} / ${{ matrix.target }} / ${{ matrix.build-type }} / ${{ matrix.solution.compiler }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -22,19 +22,26 @@ jobs:
         solution:
           - name: IPM_ARM_MHUv2
             directory: Examples/IPM_ARM_MHUv2
-            file: ipm_arm_mhuv2.csolution.yml
+            file: ipm_arm_mhuv2-gcc.csolution.yml
+            compiler: GCC
+          - name: IPM_ARM_MHUv2
+            directory: Examples/IPM_ARM_MHUv2
+            file: ipm_arm_mhuv2-ac6.csolution.yml
+            compiler: AC6
           - name: LPI2C
             directory: Examples/LPI2C
-            file: lpi2c.csolution.yml
+            file: lpi2c-gcc.csolution.yml
+            compiler: GCC
+          - name: LPI2C
+            directory: Examples/LPI2C
+            file: lpi2c-ac6.csolution.yml
+            compiler: AC6
         target:
           - DevKit-E7
           - DevKit-E8
         build-type:
           - Debug
           - Release
-        compiler:
-          - GCC
-          - AC6
 
     steps:
       - name: Check out repository
@@ -59,10 +66,11 @@ jobs:
           cd sdk-alif
           west init -m https://github.com/alifsemi/sdk-alif.git --mr v2.3.0
           west update
+          git -C zephyr apply "${GITHUB_WORKSPACE}/.github/patches/sdk-alif-v2.3.0-armclang-linker.patch"
           python -m pip install -r zephyr/scripts/requirements.txt
 
       - name: Activate Arm Compiler license
-        if: matrix.compiler == 'AC6'
+        if: matrix.solution.compiler == 'AC6'
         uses: ARM-software/cmsis-actions/armlm@v1
 
       - name: Build
@@ -73,4 +81,3 @@ jobs:
           cbuild ${{ matrix.solution.file }}
           --packs
           --context ".${{ matrix.build-type }}+${{ matrix.target }}"
-          --toolchain ${{ matrix.compiler }}
