@@ -14,18 +14,27 @@ permissions:
 
 jobs:
   build:
-    name: Build ${{ matrix.name }}
+    name: ${{ matrix.solution.name }} / ${{ matrix.target }} / ${{ matrix.build-type }} / ${{ matrix.compiler }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
+        solution:
           - name: IPM_ARM_MHUv2
             directory: Examples/IPM_ARM_MHUv2
-            solution: ipm_arm_mhuv2.csolution.yml
+            file: ipm_arm_mhuv2.csolution.yml
           - name: LPI2C
             directory: Examples/LPI2C
-            solution: lpi2c.csolution.yml
+            file: lpi2c.csolution.yml
+        target:
+          - DevKit-E7
+          - DevKit-E8
+        build-type:
+          - Debug
+          - Release
+        compiler:
+          - GCC
+          - AC6
 
     steps:
       - name: Check out repository
@@ -52,8 +61,16 @@ jobs:
           west update
           python -m pip install -r zephyr/scripts/requirements.txt
 
+      - name: Activate Arm Compiler license
+        if: matrix.compiler == 'AC6'
+        uses: ARM-software/cmsis-actions/armlm@v1
+
       - name: Build
-        working-directory: ${{ matrix.directory }}
+        working-directory: ${{ matrix.solution.directory }}
         env:
           ZEPHYR_BASE: ${{ github.workspace }}/sdk-alif/zephyr
-        run: cbuild ${{ matrix.solution }} --packs --active DevKit-E7
+        run: >-
+          cbuild ${{ matrix.solution.file }}
+          --packs
+          --context ".${{ matrix.build-type }}+${{ matrix.target }}"
+          --toolchain ${{ matrix.compiler }}

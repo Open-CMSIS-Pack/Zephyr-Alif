@@ -8,9 +8,7 @@
  *
  */
 
-/* setting i2c0 as master and lpi2c0 instance as slave.
- *
- */
+/* Set i2c0 as master and lpi2c0 as slave. */
 
 / {
 	aliases {
