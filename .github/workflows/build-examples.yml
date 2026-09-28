@@ -81,3 +81,32 @@ jobs:
           cbuild ${{ matrix.solution.file }}
           --packs
           --context ".${{ matrix.build-type }}+${{ matrix.target }}"
+
+      - name: Collect AC6 failure diagnostics
+        if: failure() && matrix.solution.compiler == 'AC6'
+        shell: bash
+        env:
+          SOLUTION_DIRECTORY: ${{ matrix.solution.directory }}
+        run: |
+          diagnostics="${RUNNER_TEMP}/ac6-diagnostics"
+          mkdir -p "${diagnostics}"
+
+          if [[ -d "${SOLUTION_DIRECTORY}/out" ]]; then
+            cp -a "${SOLUTION_DIRECTORY}/out" "${diagnostics}/out"
+          fi
+          if [[ -d "${SOLUTION_DIRECTORY}/tmp" ]]; then
+            cp -a "${SOLUTION_DIRECTORY}/tmp" "${diagnostics}/tmp"
+          fi
+          if [[ -d "${HOME}/.cache/zephyr" ]]; then
+            cp -a "${HOME}/.cache/zephyr" "${diagnostics}/zephyr-cache"
+          fi
+
+      - name: Upload AC6 failure diagnostics
+        if: failure() && matrix.solution.compiler == 'AC6'
+        uses: actions/upload-artifact@v6
+        with:
+          name: ac6-${{ matrix.solution.name }}-${{ matrix.target }}-${{ matrix.build-type }}
+          path: ${{ runner.temp }}/ac6-diagnostics
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
