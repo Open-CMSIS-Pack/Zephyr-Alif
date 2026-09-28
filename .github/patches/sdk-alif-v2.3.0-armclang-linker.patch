@@ -18,10 +18,9 @@ diff --git a/cmake/linker/linker_script_common.cmake b/cmake/linker/linker_scrip
 diff --git a/cmake/linker/armlink/scatter_script.cmake b/cmake/linker/armlink/scatter_script.cmake
 --- a/cmake/linker/armlink/scatter_script.cmake
 +++ b/cmake/linker/armlink/scatter_script.cmake
-@@ -17,7 +17,8 @@ function(process_region)
+@@ -17,6 +17,7 @@ function(process_region)
      get_parent(OBJECT ${REGION_OBJECT} PARENT parent TYPE SYSTEM)
      get_property(symbols GLOBAL PROPERTY ${parent}_SYMBOLS)
- 
 -    set_property(GLOBAL APPEND PROPERTY ${REGION_OBJECT}_SYMBOLS ${symbols})
 +    get_property(flash GLOBAL PROPERTY ${parent}_REGION_BY_NAME_FLASH)
 +    set_property(GLOBAL APPEND PROPERTY ${flash}_SYMBOLS ${symbols})
