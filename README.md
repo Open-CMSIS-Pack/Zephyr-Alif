@@ -22,6 +22,10 @@ The example setup uses an Arm [ULINKplus debug adapter](https://www.arm.com/prod
 > [!NOTE]
 > Ensure that the **Arm CMSIS Solution** extension is version 1.72.0 or later.
 
+> [!TIP]
+> If configuration or build errors occur, use **Clean All 'out' and 'tmp' directories** from the CMSIS view menu to
+> remove stale CMake cache files before rebuilding.
+
 ## Zephyr installation
 
 The following instructions apply to Linux, macOS, and Windows. Install a supported version of Python 3 and Git before
@@ -72,7 +76,7 @@ continuing.
   Once activated, the shell prompt is prefixed with `(.venv)`. Activate the environment again whenever you open a
   new terminal. Run `deactivate` to leave it.
 
-- Install west. After activation, `python` refers to the virtual environment on every supported operating system:
+- Install `west`. After activation, `python` refers to the virtual environment on every supported operating system:
 
   ```console
   python -m pip install west
@@ -105,14 +109,14 @@ continuing.
 The CMSIS Solution extension needs the Zephyr workspace and virtual environment paths when it runs `west`.
 
 1. In VS Code, open **Settings** and search for **Cmsis-Csolution: Environment Variables**.
-2. Select the **User** or **Workspace** setting and choose **Add Item** for each variable below. Replace the example
-   prefix with the absolute path to your `sdk-alif` directory.
+2. Select the **User** or **Workspace** setting and choose **Add Item** for each variable below. Replace `<work-dir>`
+   with the directory in which you created your `sdk-alif` workspace.
 
    | Variable | Linux and macOS | Windows |
    |---|---|---|
-   | `ZEPHYR_BASE` | `/work/sdk-alif/zephyr` | `C:\work\sdk-alif\zephyr` |
-   | `PATH` | `/work/sdk-alif/.venv/bin` | `C:\work\sdk-alif\.venv\Scripts` |
-   | `VIRTUAL_ENV` | `/work/sdk-alif/.venv` | `C:\work\sdk-alif\.venv` |
+   | `ZEPHYR_BASE` | `/<work-dir>/sdk-alif/zephyr` | `C:\<work-dir>\sdk-alif\zephyr` |
+   | `PATH` | `/<work-dir>/sdk-alif/.venv/bin` | `C:\<work-dir>\sdk-alif\.venv\Scripts` |
+   | `VIRTUAL_ENV` | `/<work-dir>/sdk-alif/.venv` | `C:\<work-dir>\sdk-alif\.venv` |
 
 3. Fully restart VS Code so that the extension uses the new environment.
 
